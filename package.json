@@ -1,6 +1,6 @@
 {
   "name": "cornerstone-base64-image-loader",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Cornerstone Image Loader for Base64 PNG format",
   "keywords": [
     "cornerstone",
@@ -112,7 +112,7 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.18.0",
-    "semantic-release": "^15.9.16",
+    "semantic-release": "^15.13.3",
     "shelljs": "^0.8.3",
     "travis-deploy-once": "^5.0.9",
     "ts-jest": "^23.10.2",
