@@ -1,8 +1,13 @@
 {
   "name": "cornerstone-base64-image-loader",
-  "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "version": "0.0.1",
+  "description": "Cornerstone Image Loader for Base64 PNG format",
+  "keywords": [
+    "cornerstone",
+    "imaging",
+    "medical",
+    "base64"
+  ],
   "main": "dist/cornerstone-base64-image-loader.umd.js",
   "module": "dist/cornerstone-base64-image-loader.es5.js",
   "typings": "dist/types/cornerstone-base64-image-loader.d.ts",
@@ -12,7 +17,7 @@
   "author": "sisobus <sisobus1@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/sisobus/cornerstoneBase64ImageLoader"
   },
   "license": "MIT",
   "engines": {
@@ -49,7 +54,7 @@
     "transform": {
       ".(ts|tsx)": "ts-jest"
     },
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
@@ -88,6 +93,7 @@
     "@types/node": "^10.11.0",
     "colors": "^1.3.2",
     "commitizen": "^3.0.0",
+    "cornerstone-core": "^2.2.8",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
@@ -116,5 +122,8 @@
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.12.0",
     "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "upng-js": "^2.1.0"
   }
 }
