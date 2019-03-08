@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    </head>
+    <body>
+        <div style="
+            background: black;
+            width: 512px;
+            height: 512px;
+        ">
+            <div id="cornerstone-element"
+                style="width: 100%; height: 100%;"
+                data-index="0" oncontextmenu="return false"></div>
+        </div>
+    </body>
+    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.js"></script>
+
+    <!-- include the cornerstone library -->
+    <script src="./cornerstone.min.js"></script>
+    <script src="https://unpkg.com/cornerstone-tools@2.5.0/dist/cornerstoneTools.min.js"></script>
+    <script src="https://unpkg.com/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
+    <script src="https://unpkg.com/dicom-parser@1.8.3/dist/dicomParser.min.js"></script>
+    <script src="https://unpkg.com/cornerstone-wado-image-loader@2.2.3/dist/cornerstoneWADOImageLoader.min.js"></script>
+    <script src="../dist/cornerstone-base64-image-loader.umd.js"></script>
+    <script src="./base64Mask.js"></script>
+    <script>
+        const uris = {
+            dicomUri: 'https://api.sisobus.com/share/1.2.392.200036.9125.9.0.454007160.16652084.3672845318_46799.dcm',
+            maskUri: 'https://api.sisobus.com/share/1.2.392.200036.9125.9.0.454007160.16652084.3672845318_46799_Nodule_-_Mass_1cm.png',
+            base64Mask: mask
+        }
+        const init = () => {
+            cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+            cornerstoneBase64ImageLoader.external.cornerstone = cornerstone;
+            cornerstoneTools.external.Hammer = Hammer
+            cornerstoneTools.external.cornerstone = cornerstone
+            cornerstoneTools.external.cornerstoneMath = cornerstoneMath
+            const wadoconfig = {
+                webWorkerPath: 'https://api.sisobus.com/share/cornerstoneWADOImageLoaderWebWorker.js',
+                taskConfiguration: {
+                    decodeTask: {
+                        codecsPath: 'https://api.sisobus.com/share/cornerstoneWADOImageLoaderCodecs.js'
+                    }
+                }
+            }
+            cornerstoneWADOImageLoader.webWorkerManager.initialize(wadoconfig)
+        }
+        const draw = () => {
+            const element = document.getElementById('cornerstone-element');
+            const renderer = new cornerstoneTools.stackRenderers.FusionRenderer()
+            renderer.findImageFn = function (imageIds) {
+                return imageIds[0]
+            }
+            const imageId = `wadouri:${uris.dicomUri}`;
+            const dicomStack = {
+                imageIds: [imageId],
+                currentImageIdIndex: 0,
+                options: {
+                    opacity: 1,
+                    visible: true,
+                    name: 'base'
+                }
+            };
+
+            cornerstone.enable(element);
+            cornerstone.loadImage(imageId).then(image => {
+                cornerstone.displayImage(element, image);
+                cornerstoneTools.addStackStateManager(element, ['stack']);
+                cornerstoneTools.addToolState(element, 'stack', dicomStack);
+                cornerstoneTools.addToolState(element, 'stackRenderer', renderer);
+                const promise = renderer.render(element);
+
+                cornerstoneTools.mouseInput.enable(element);
+                cornerstoneTools.mouseWheelInput.enable(element);
+                cornerstoneTools.eraser.enable(element);
+                cornerstoneTools.wwwc.activate(element, 1);
+                cornerstoneTools.pan.activate(element, 2);
+                cornerstoneTools.zoom.activate(element, 4);
+                cornerstoneTools.zoomWheel.activate(element);
+
+                cornerstoneTools.touchInput.enable(element);
+                cornerstoneTools.panTouchDrag.activate(element);
+                cornerstoneTools.zoomTouchPinch.activate(element);
+
+                return promise;
+            }).then(() => {
+                const enabledElement = cornerstone.getEnabledElement(element)
+                const maskImageId = `base64://${uris.base64Mask}`;
+                const maskStack = {
+                    imageIds: [maskImageId],
+                    currentImageIdIndex: 0,
+                    options: {
+                        opacity: 0.9,
+                        visible: true,
+                        viewport: {
+                            translation: enabledElement.viewport.translation,
+                            scale: enabledElement.viewport.scale
+                        },
+                        name: 'nodule'
+                    }
+                };
+                cornerstoneTools.addToolState(element, 'stack', maskStack);
+                renderer.render(element).then(() => {
+                    cornerstone.updateImage(element);
+                    const layers = cornerstone.getLayers(element)
+                    for (let i = 1; i < layers.length; i = i + 1) {
+                        if (layers[i].viewport.scale !== layers[0].viewport.scale) {
+                            layers[i].viewport.scale = layers[0].viewport.scale
+                        }
+                    }
+                });
+            });
+        }
+        init();
+        draw();
+    </script>
+</html>

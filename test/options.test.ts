@@ -7,20 +7,20 @@ describe('cornerstoneBase64ImageLoader options test', () => {
       channel: 4,
       width: null,
       height: null,
-      schema: 'base64'
+      schema: 'base64://'
     })
   })
   it('set options 1', () => {
     cornerstoneBase64ImageLoader.initOptions()
     cornerstoneBase64ImageLoader.options = {
       channel: 3,
-      schema: 'test'
+      schema: 'test://'
     }
     expect(cornerstoneBase64ImageLoader.options).toEqual({
       channel: 3,
       width: null,
       height: null,
-      schema: 'test'
+      schema: 'test://'
     })
   })
   it('set options 2', () => {
@@ -28,13 +28,30 @@ describe('cornerstoneBase64ImageLoader options test', () => {
     cornerstoneBase64ImageLoader.options = {
       channel: 1,
       width: 256,
-      height: 256
+      height: 256,
+      schema: 'base64://'
     }
     expect(cornerstoneBase64ImageLoader.options).toEqual({
       channel: 1,
       width: 256,
       height: 256,
-      schema: 'base64'
+      schema: 'base64://'
+    })
+  })
+  it('check options reference or copy', () => {
+    cornerstoneBase64ImageLoader.external.cornerstone = cornerstone
+    cornerstoneBase64ImageLoader.initOptions()
+    cornerstoneBase64ImageLoader.options = {
+      channel: 1,
+      width: 256,
+      height: 256,
+      schema: 'base64://'
+    }
+    expect(cornerstoneBase64ImageLoader.imageLoader.options).toEqual({
+      channel: 1,
+      width: 256,
+      height: 256,
+      schema: 'base64://'
     })
   })
 })
