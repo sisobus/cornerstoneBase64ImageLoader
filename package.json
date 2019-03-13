@@ -1,6 +1,6 @@
 {
   "name": "cornerstone-base64-image-loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cornerstone Image Loader for Base64 PNG format",
   "keywords": [
     "cornerstone",
