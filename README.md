@@ -1,5 +1,5 @@
 # cornerstone Base64 Image Loader
-[![Build Status](https://travis-ci.org/sisobus/cornerstoneBase64ImageLoader.svg?branch=master)](https://travis-ci.org/sisobus/cornerstoneBase64ImageLoader)
+[![Build Status](https://travis-ci.org/sisobus/cornerstoneBase64ImageLoader.svg?branch=master)](https://travis-ci.org/sisobus/cornerstoneBase64ImageLoader) [![codecov](https://codecov.io/gh/sisobus/cornerstoneBase64ImageLoader/branch/master/graph/badge.svg)](https://codecov.io/gh/sisobus/cornerstoneBase64ImageLoader)
 
 A library of [Cornerstone](https://github.com/cornerstonejs/cornerstone) Image Loader for Web Images (PNG, JPEG) encoded base64.
 
