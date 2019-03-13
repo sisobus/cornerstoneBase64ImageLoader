@@ -176,6 +176,9 @@ export default class CornerstoneBase64ImageLoader {
   get cornerstone(): any {
     return this._cornerstone
   }
+  get UPNG(): any {
+    return this._UPNG
+  }
   setUPNG(UPNG: any) {
     this._UPNG = UPNG
   }

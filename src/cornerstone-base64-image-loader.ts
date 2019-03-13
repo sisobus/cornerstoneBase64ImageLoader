@@ -13,6 +13,9 @@ const cornerstoneBase64ImageLoader = {
     get cornerstone() {
       return _imageLoader.cornerstone
     },
+    get UPNG() {
+      return _imageLoader.UPNG
+    },
     set UPNG(_UPNG: any) {
       _imageLoader.setUPNG(_UPNG)
     }
