@@ -1,6 +1,6 @@
 {
   "name": "cornerstone-base64-image-loader",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "Cornerstone Image Loader for Base64 PNG format",
   "keywords": [
     "cornerstone",
@@ -55,6 +55,9 @@
       ".(ts|tsx)": "ts-jest"
     },
     "testEnvironment": "jsdom",
+    "testEnvironmentOptions": {
+      "resources": "usable"
+    },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
@@ -67,10 +70,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 5,
-        "functions": 30,
-        "lines": 40,
-        "statements": 40
+        "branches": 25,
+        "functions": 60,
+        "lines": 60,
+        "statements": 60
       }
     },
     "collectCoverageFrom": [
@@ -121,7 +124,8 @@
     "tslint-config-prettier": "^1.15.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.12.0",
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "upng-js": "^2.1.0"
   },
   "dependencies": {}
 }
